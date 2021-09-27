@@ -2,6 +2,9 @@ import { Button, Input, message, Modal, Space, Form, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { players } from "../../assets/data";
 import splitTeam from "../../utils/index";
+import moment from "moment";
+
+moment.locale();
 
 const { Paragraph } = Typography;
 
@@ -9,13 +12,13 @@ const SplitTeam = () => {
 	// 数组或者对象若要及时更新，则需要传入一个新的数组或对象，不能传入原来的
 	const [cachePlayers, setCachePlayers] = useState(players);
 	const [result, setResult] = useState(null);
-	const [time, setTime] = useState(new Date().toLocaleTimeString());
+	const [time, setTime] = useState(moment().format("YYYY-MM-DD HH:mm:ss"));
 	const [showModifyModal, setShowModifyModal] = useState(false);
 	const [form] = Form.useForm();
 
 	useEffect(() => {
 		const timeId = setInterval(() => {
-			setTime(new Date().toLocaleTimeString());
+			setTime(moment().format("YYYY-MM-DD HH:mm:ss"));
 		}, 1000);
 		return () => clearInterval(timeId);
 	}, []);
